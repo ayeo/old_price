@@ -1,0 +1,16 @@
+{
+    "name": "ayeo/price",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "ayeo",
+            "email": "me@ayeo.pl"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Price\\": "src//Price//"
+        }
+    }
+}
