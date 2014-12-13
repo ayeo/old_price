@@ -1,18 +1,22 @@
 <?php
 require('./vendor/autoload.php');
 
+use Price\Builder\Builder as PriceBuilder;
+use Price\Decorator\ConvertCurrency as ConvertCurrencyDecorator;
+use Price\Decorator\Round as RoundDecorator;
+
 $rates = ['USD' => 1.000, 'PLN' => 3.3543];
-$convertCurrencyDecorator = new \Price\Decorator\ConvertCurrency('USD', $rates);
+$convertCurrencyDecorator = new ConvertCurrencyDecorator('USD', $rates);
 
-$defaultRoundDecorator = new \Price\Decorator\Round(2);
+$defaultRoundDecorator = new RoundDecorator(2);
 
-$builder = new \Price\Builder\Builder();
-$builder->addDecorator($defaultRoundDecorator);
-$builder->addDecorator($convertCurrencyDecorator);
-$builder->addDecorator($defaultRoundDecorator);
-$builder->setCurrencySymbol('PLN');
+$usdBuilder = new PriceBuilder();
+$usdBuilder->addDecorator($defaultRoundDecorator);
+$usdBuilder->addDecorator($convertCurrencyDecorator);
+$usdBuilder->addDecorator($defaultRoundDecorator);
+$usdBuilder->setCurrencySymbol('PLN');
 
-$price = $builder->buildByNett(100.00, 10); //gross: 32.79 USD
+$price = $usdBuilder->buildByNett(100.00, 10); //gross: 32.79 USD
 $price->multiply(2); //gross: 65.58 USD
 
 
@@ -25,16 +29,13 @@ var_dump($price->getCurrencySymbol());
 
 var_dump('-----------------------------------');
 
-$builder = new \Price\Builder\Builder();
-$builder->addDecorator($defaultRoundDecorator);
-$builder->setCurrencySymbol('PLN');
+$plnBuilder = new PriceBuilder();
+$plnBuilder->addDecorator($defaultRoundDecorator);
+$plnBuilder->setCurrencySymbol('PLN');
 
-$price = $builder->buildByNett(100.00, 10); //gross: 110.00 PLN
+$price = $plnBuilder->buildByNett(100.00, 10); //gross: 110.00 PLN
 $price->multiply(2); //gross: 220.00 PLN
-
-$price = $builder->decorate($price, $convertCurrencyDecorator); //gross: 65.5874549086 USD
-
-$price = $builder->decorate($price, $defaultRoundDecorator); //gross: 65.59 USD
+$price = $usdBuilder->decorate($price); //gross: 65.59 USD
 
 var_dump($price->getGross());
 var_dump($price->getNett());

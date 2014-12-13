@@ -86,27 +86,30 @@ class Builder
 		$price->setGross($grossValue);
 		$price->setTax($tax);
 		$price->setCurrencySymbol($this->currencySymbol);
-		
-		foreach ($this->decorators as $decorator)
-		{
-			$price = $this->decorate($price, $decorator);
-		}
+
+		return $this->decorate($price);
+//		foreach ($this->decorators as $decorator)
+//		{
+//			$price = $this->decorate($price, $decorator);
+//		}
 		
 		return $price;
 	}
 
-	/**
-	 * @param PriceInterface $price
-	 * @param AbstractDecorator $decorator
-	 * @return PriceInterface
-	 */
-	public function decorate(PriceInterface $price, AbstractDecorator $decorator)
+	public function decorate(PriceInterface $price)
 	{
-		$clone = clone($decorator);
-		$clone->setPrice($price);
-		$clone->setCalculator($this->calculator);
+		$price = $price->getRaw(); //add flag
 
-		return $clone;
+		foreach ($this->decorators as $decorator)
+		{
+			$clone = clone($decorator);
+			$clone->setPrice($price);
+			$clone->setCalculator($this->calculator);
+
+			$price = $clone;
+		}
+
+		return $price;
 	}
 	
 }
