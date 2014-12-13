@@ -2,6 +2,7 @@
 namespace Price\Test\Builder;
 
 use Price\Builder\Builder;
+use Price\Decorator\Round;
 
 class BuilderTest extends \PHPUnit_Framework_TestCase
 {
@@ -27,12 +28,13 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 	public function buildByNettDataProvider()
 	{
 		return [
-			[100, 23, 123],
-			[100.00, 23, 123],
-			[100.00, 23.00, 123],
-			[100.00, 23.00, 123.00],
-			[100, 23, 123],
-			[99.99, 11, 110.9889],
+			[100,			23,			123.00],
+			[100.00,		23,			123.00],
+			[100.00,		23.00,		123.00],
+			[100.00,		23.00,		123.00],
+			[100,			23,			123],
+
+			[99.99,			11,			110.9889],
 		];
 	}
 

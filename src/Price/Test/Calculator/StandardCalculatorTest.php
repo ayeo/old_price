@@ -31,24 +31,22 @@ class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
 	public function testSubtractionByGrossRounded($round, $grossA, $taxA, $grossB, $taxB, $expectedGross, $expectedNett, $expectedTax)
 	{
 		$delta = 0.000000001;
-		if (!is_null($round))
-		{
-			$this->builder->addDecorator(new Round($round));
-		}
 
-		$priceA = $this->builder->buildByGross($grossA, $taxA);
-		$priceB = $this->builder->buildByGross($grossB, $taxB);
+		$builder = new PriceMockBuilder($round);
+		$priceA = $builder->build(null, $grossA, $taxA);
+		$priceB = $builder->build(null, $grossB, $taxB);
 
 		$this->calculator->subtract($priceA, $priceB);
 
-		$this->assertEquals($expectedGross, $priceA->getGross(), '', $delta);
-		$this->assertEquals($expectedNett, $priceA->getNett(), '', $delta);
-		$this->assertEquals($expectedTax, $priceA->getTax(), '', $delta);
+		$this->assertEquals($expectedGross,	$priceA->getGross(),	'', $delta);
+		$this->assertEquals($expectedNett,	$priceA->getNett(),		'', $delta);
+		$this->assertEquals($expectedTax,	$priceA->getTax(),		'', $delta);
 	}
 
 	public function testSubtractionByGrossRoundedDataProvider()
 	{
-		return [
+		return
+		[
 			[null,	100, 		10, 	150, 		10,		-50,		-45.4545454545,		10],
 			[1,		100, 		10, 	150, 		10,		-50,		-45.5,				10],
 			[2,		100, 		10, 	150, 		10,		-50,		-45.45,				10],
