@@ -3,6 +3,9 @@ namespace Price\Decorator;
 
 class NoNegative extends AbstractDecorator
 {
+	/**
+	 * @return float
+	 */
 	public function getNett()
 	{
 		if ($this->price->getNett() >= 0)
@@ -15,6 +18,9 @@ class NoNegative extends AbstractDecorator
 		}
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getGross()
 	{
 		if ($this->price->getGross() >= 0)

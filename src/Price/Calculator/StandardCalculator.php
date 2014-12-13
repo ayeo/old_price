@@ -8,6 +8,7 @@ class StandardCalculator implements CalculatorInterface
 	/**
 	 * @param PriceInterface $priceA
 	 * @param PriceInterface $priceB
+	 * @return PriceInterface
 	 */
 	public function add(PriceInterface $priceA, PriceInterface $priceB)
 	{
@@ -16,28 +17,36 @@ class StandardCalculator implements CalculatorInterface
 		$priceA->setNett($priceA->getNett() + $priceB->getNett());
 
 		$this->recalculateTax($priceA);
+
+		return $priceA;
 	}
 
 	/**
 	 * @param PriceInterface $priceA
 	 * @param PriceInterface $priceB
+	 * @return PriceInterface
 	 */
-	public function substract(PriceInterface $priceA, PriceInterface $priceB)
+	public function subtract(PriceInterface $priceA, PriceInterface $priceB)
 	{
 		$this->compareCurrencySymbols($priceA, $priceB);
 		$priceA->setGross($priceA->getGross() - $priceB->getGross());
 		$priceA->setNett($priceA->getNett() - $priceB->getNett());
 		$this->recalculateTax($priceA);
+
+		return $priceA;
 	}
 
 	/**
 	 * @param PriceInterface $price
 	 * @param $times
+	 * @return PriceInterface
 	 */
 	public function multiply(PriceInterface $price, $times)
 	{
 		$price->setGross($price->getGross() * $times);
 		$price->setNett($price->getNett() * $times);
+
+		return $price;
 	}
 
 

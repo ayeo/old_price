@@ -40,7 +40,7 @@ class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
 	public function testSubstractionByGrossDataProvider()
 	{
 		return [
-			[100, 		10, 	150, 		10, 	-50],
+			[100, 		10, 	150, 		10,		-50],
 			[199.99, 	23, 	57.77, 		10,		142.22],
 			[199.9988, 	23, 	57.7712, 	10,		142.2276],
 		];
@@ -64,7 +64,7 @@ class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
 	public function testSubstractionByGrossRoundedDataProvider()
 	{
 		return [
-			[100, 		10, 	150, 		10, 	-50],
+			[100, 		10, 	150, 		10,		-50],
 			[199.99, 	23, 	57.77, 		10,		142.22],
 			[199.9988, 	23, 	57.7712, 	10,		142.23],
 			[10.001, 	23, 	1.002, 		10,		9.00],
@@ -90,7 +90,7 @@ class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
 	public function testSubstractionByGrossNoNegativeDataProvider()
 	{
 		return [
-			[100, 		10, 	150, 		10, 	0],
+			[100, 		10, 	150, 		10,		0],
 			[199.99, 	23, 	200, 		10,		0],
 			[200,	 	23, 	199.99, 	10,		0.01],
 			[10.001, 	23, 	1.002, 		10,		8.999],

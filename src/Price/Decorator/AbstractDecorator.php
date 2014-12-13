@@ -1,6 +1,7 @@
 <?php
 namespace Price\Decorator;
 
+use Price\Calculator\CalculatorInterface;
 use Price\PriceInterface;
 
 abstract class AbstractDecorator implements PriceInterface
@@ -10,22 +11,60 @@ abstract class AbstractDecorator implements PriceInterface
 	 */
 	protected $price;
 
+	/**
+	 * @var CalculatorInterface
+	 */
 	private $calculator;
 
-	public function setPrice(PriceInterface $price)
+	/**
+	 * @param PriceInterface $price
+	 */
+	final public function setPrice(PriceInterface $price)
 	{
 		$this->price = $price;
 	}
 
-	final public function setCalculator($calculator)
+	/**
+	 * @param PriceInterface $price
+	 * @return PriceInterface
+	 */
+	final public function add(PriceInterface $price)
+	{
+		return $this->calculator->add($this, $price);
+	}
+
+	/**
+	 * @param PriceInterface $price
+	 * @return PriceInterface
+	 */
+	final public function subtract(PriceInterface $price)
+	{
+		return $this->calculator->subtract($this, $price);
+	}
+
+	/**
+	 * @param $times
+	 * @return PriceInterface
+	 */
+	final public function multiply($times)
+	{
+		return $this->calculator->multiply($this, $times);
+	}
+
+	/**
+	 * @param CalculatorInterface $calculator
+	 */
+	final public function setCalculator(CalculatorInterface $calculator)
 	{
 		$this->calculator = $calculator;
 	}
+
 
 	public function getNett()
 	{
 		return $this->price->getNett();
 	}
+
 
 	public function getGross()
 	{
@@ -37,27 +76,9 @@ abstract class AbstractDecorator implements PriceInterface
 		return $this->price->getTax();
 	}
 
-	final public function add(PriceInterface $price)
-	{
-		$this->calculator->add($this, $price);
-
-		return $this;
-	}
-
-	final public function substract(PriceInterface $price)
-	{
-		$this->calculator->substract($this, $price);
-
-		return $this;
-	}
-
-	final public function multiply($times)
-	{
-		$this->calculator->multiply($this, $times);
-
-		return $this;
-	}
-
+	/**
+	 * @return PriceInterface
+	 */
 	final public function cloneMe()
 	{
 		return clone($this);
