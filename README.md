@@ -6,7 +6,7 @@ Price handling. This library is under development. Do not use :)
 ### Usage
 ```
 use \Price\Builder\Builder as PriceBuilder;
-use \Price\Decorator\Round as RoundDecorator
+use \Price\Decorator\Round;
 
 $builder = new PriceBuilder();
 $priceA = $builder->buildByNett(79.104, 10);
@@ -17,9 +17,6 @@ $builder->decorate($priceA, new Round(2))->getNett(); //returns 158.21
 
 ### Use rounded values to calculations
 ```
-use \Price\Builder\Builder as PriceBuilder;
-use \Price\Decorator\Round as RoundDecorator
-
 $builder = new PriceBuilder();
 $builder->setCurrencySymbol('USD');
 $builder->addDecorator(new RoundDecorator(2));
