@@ -7,6 +7,10 @@ class ConvertCurrency extends AbstractDecorator
 
 	private $currencySymbol;
 
+	/**
+	 * @param string $currencySymbol
+	 * @param array $rates
+	 */
 	public function __construct($currencySymbol, $rates = [])
 	{
 		$this->currencySymbol = $currencySymbol;
@@ -29,11 +33,17 @@ class ConvertCurrency extends AbstractDecorator
 		return $this->price->getGross() / $this->rates[$this->price->getCurrencySymbol()] * $this->rates[$this->currencySymbol];
 	}
 
+	/**
+	 * @param float $grossValue
+	 */
 	public function setGross($grossValue)
 	{
 		$this->price->setGross($grossValue * $this->rates[$this->price->getCurrencySymbol()] / $this->rates[$this->currencySymbol]);
 	}
 
+	/**
+	 * @param float $nettValue
+	 */
 	public function setNett($nettValue)
 	{
 		$this->price->setNett($nettValue * $this->rates[$this->price->getCurrencySymbol()] / $this->rates[$this->currencySymbol]);

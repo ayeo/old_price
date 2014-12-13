@@ -28,23 +28,28 @@ $priceA->multiply(2)->getNett(); //returns 158.20
 ### Converting currency
 You can convert currencies in two different ways. Example below shows converting each price seperatly. It may be useful if you store prices in PLN but want them to be dispayed as USD. Notice we use Round decorator twice
 ```
-$defaultRoundDecorator = new \Price\Decorator\Round(2);
+use Price\Builder\Builder as PriceBuilder
+use Price\Decorator\ConvertCurrency as ConvertCurrencyDecorator;
+use Price\Decorator\Round as RoundDecorator;
+
 
 $rates = ['USD' => 1.000, 'PLN' => 3.3543];
-$convertCurrencyDecorator = new \Price\Decorator\ConvertCurrency('USD', $rates);
+$convertCurrencyDecorator = new ConvertCurrencyDecorator('USD', $rates);
 
-$builder = new \Price\Builder\Builder();
+$defaultRoundDecorator = new RoundDecorator(2);
+
+$builder = new PriceBuilder();
+$builder->setCurrencySymbol('PLN');
 $builder->addDecorator($defaultRoundDecorator);
 $builder->addDecorator($convertCurrencyDecorator);
 $builder->addDecorator($defaultRoundDecorator);
-$builder->setCurrencySymbol('PLN');
 
 $price = $builder->buildByNett(100.00, 10); //gross: 32.79 USD
 $price->multiply(2); //gross: 65.58 USD
 ```
 If you want do all calculations in source currency and then convert totals you can do:
 ```
-$builder = new \Price\Builder\Builder();
+$builder = new PriceBuilder();
 $builder->addDecorator($defaultRoundDecorator);
 $builder->setCurrencySymbol('PLN');
 
@@ -57,6 +62,10 @@ $price = $builder->decorate($price, $defaultRoundDecorator); //gross: 65.59 USD
 Notice that we get different result in these two examples 65.59 USD and 65.58 USD
 
 
-### Additional decorators
+### Available decorators
 * NoNegative - returns 0.00 for prices below 0
 * ConvertCurrency
+* Round - allow to set prices precision
+
+### TODO
+* Add decorator for nice looknig prices like: 1.99, 9.99 etc
