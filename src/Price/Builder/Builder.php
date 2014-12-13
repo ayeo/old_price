@@ -2,6 +2,7 @@
 namespace Price\Builder;
 
 use Price\Calculator\StandardCalculator;
+use Price\Calculator\CalculatorInterface;
 use Price\Decorator\AbstractDecorator;
 use Price\Price;
 use Price\PriceInterface;
@@ -12,6 +13,16 @@ class Builder
 	
 	private $decorators = [];
 
+	/**
+	 * @var CalculatorInterface
+	 */
+	private $calculator;
+
+
+	public function __construct()
+	{
+		$this->calculator = new StandardCalculator();
+	}
 
 	public function addDecorator(AbstractDecorator $decorator)
 	{
@@ -41,8 +52,7 @@ class Builder
 	
 	private function build($nettValue, $grossValue, $tax)
 	{
-		$calculator = new StandardCalculator();
-		$price = new Price($calculator);
+		$price = new Price($this->calculator);
 		$price->setNett($nettValue);
 		$price->setGross($grossValue);
 		$price->setTax($tax);
@@ -50,11 +60,8 @@ class Builder
 		
 		foreach ($this->decorators as $decorator)
 		{
-			$clone = clone($decorator);
-			$clone->setPrice($price);
-
-			$price = $clone;
-		}		
+			$price = $this->decorate($price, $decorator);
+		}
 		
 		return $price;
 	}
@@ -67,9 +74,10 @@ class Builder
 	public function decorate(PriceInterface $price, AbstractDecorator $decorator)
 	{
 		$clone = clone($decorator);
-		$decorator->setPrice($price);
+		$clone->setPrice($price);
+		$clone->setCalculator($this->calculator);
 
-		return $decorator;
+		return $clone;
 	}
 	
 }

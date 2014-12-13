@@ -3,7 +3,7 @@ namespace Price\Calculator;
 
 use Price\PriceInterface;
 
-class StandardCalculator
+class StandardCalculator implements CalculatorInterface
 {
 	/**
 	 * @param PriceInterface $priceA
@@ -11,12 +11,11 @@ class StandardCalculator
 	 */
 	public function add(PriceInterface $priceA, PriceInterface $priceB)
 	{
-		//check currency symbol!
+		$this->compareCurrencySymbols($priceA, $priceB);
 		$priceA->setGross($priceA->getGross() + $priceB->getGross());
 		$priceA->setNett($priceA->getNett() + $priceB->getNett());
-		
-		$tax = 100 * $priceA->getGross() / $priceA->getNett() - 100;
-		$priceA->setTax($tax);				
+
+		$this->recalculateTax($priceA);
 	}
 
 	/**
@@ -25,25 +24,50 @@ class StandardCalculator
 	 */
 	public function substract(PriceInterface $priceA, PriceInterface $priceB)
 	{
-		//check currency symbol!
+		$this->compareCurrencySymbols($priceA, $priceB);
 		$priceA->setGross($priceA->getGross() - $priceB->getGross());
 		$priceA->setNett($priceA->getNett() - $priceB->getNett());
-
-		$tax = 100 * $priceA->getGross() / $priceA->getNett() - 100;
-		$priceA->setTax($tax);
+		$this->recalculateTax($priceA);
 	}
 
+	/**
+	 * @param PriceInterface $price
+	 * @param $times
+	 */
 	public function multiply(PriceInterface $price, $times)
 	{
 		$price->setGross($price->getGross() * $times);
 		$price->setNett($price->getNett() * $times);
-
-		return $this;
 	}
 
 
+	/**
+	 * @param PriceInterface $price
+	 */
 	private function recalculateTax(PriceInterface $price)
 	{
+		if ($price->getNett() != 0)
+		{
+			$tax = 100 * $price->getGross() / $price->getNett() - 100;
+		}
+		else
+		{
+			$tax = 0;
+		}
 
+		$price->setTax($tax);
+	}
+
+	/**
+	 * @param PriceInterface $priceA
+	 * @param PriceInterface $priceB
+	 * @throws \Exception
+	 */
+	private function compareCurrencySymbols(PriceInterface $priceA, PriceInterface $priceB)
+	{
+		if ($priceA->getCurrencySymbol() !== $priceB->getCurrencySymbol())
+		{
+			throw new \Exception('Can not handle different currencies');
+		}
 	}
 }

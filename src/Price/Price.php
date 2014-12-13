@@ -1,7 +1,7 @@
 <?php
 namespace Price;
 
-use Price\Calculator\StandardCalculator;
+use Price\Calculator\CalculatorInterface;
 
 class Price implements PriceInterface
 {
@@ -13,10 +13,10 @@ class Price implements PriceInterface
 	
 	private $currencySymbol = null;
 	
-	private $calculator;
+	public $calculator;
 
 	
-	public function __construct(StandardCalculator $calculator)
+	public function __construct(CalculatorInterface $calculator)
 	{
 		$this->calculator = $calculator;
 	}
@@ -65,6 +65,20 @@ class Price implements PriceInterface
 	{
 		$this->calculator->add($this, $price);
 		
+		return $this;
+	}
+
+	public function substract(PriceInterface $price)
+	{
+		$this->calculator->substract($this, $price);
+
+		return $this;
+	}
+
+	public function multiply($times)
+	{
+		$this->calculator->multiply($this, $times);
+
 		return $this;
 	}
 	

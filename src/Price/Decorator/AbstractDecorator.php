@@ -6,13 +6,20 @@ use Price\PriceInterface;
 abstract class AbstractDecorator implements PriceInterface
 {
 	/**
-	 * @var Price
+	 * @var PriceInterface
 	 */
 	protected $price;
+
+	private $calculator;
 
 	public function setPrice(PriceInterface $price)
 	{
 		$this->price = $price;
+	}
+
+	final public function setCalculator($calculator)
+	{
+		$this->calculator = $calculator;
 	}
 
 	public function getNett()
@@ -30,14 +37,28 @@ abstract class AbstractDecorator implements PriceInterface
 		return $this->price->getTax();
 	}
 
-	public function add(PriceInterface $price)
+	final public function add(PriceInterface $price)
 	{
-		$this->price->add($price);
+		$this->calculator->add($this, $price);
 
 		return $this;
 	}
 
-	public function cloneMe()
+	final public function substract(PriceInterface $price)
+	{
+		$this->calculator->substract($this, $price);
+
+		return $this;
+	}
+
+	final public function multiply($times)
+	{
+		$this->calculator->multiply($this, $times);
+
+		return $this;
+	}
+
+	final public function cloneMe()
 	{
 		return clone($this);
 	}
@@ -66,6 +87,4 @@ abstract class AbstractDecorator implements PriceInterface
 	{
 		$this->price->setTax($tax);
 	}
-
-
 }
