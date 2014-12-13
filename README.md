@@ -20,8 +20,8 @@ $builder->decorate($priceA, new Round(2))->getNett(); //returns 158.21
 $builder = new PriceBuilder();
 $builder->setCurrencySymbol('USD');
 $builder->addDecorator(new RoundDecorator(2));
-$priceA = $builder->buildByNett(79.104, 10);
 
+$priceA = $builder->buildByNett(79.104, 10);
 $priceA->multiply(2)->getNett(); //returns 158.20
 ```
 
