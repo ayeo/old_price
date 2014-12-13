@@ -12,7 +12,7 @@ $builder = new PriceBuilder();
 $priceA = $builder->buildByNett(79.104, 10);
 $priceA->multiply(2)->getNett(); //returns 158.208
 
-$builder->decorate($priceA, new Roound(2)->getNett(); //returns 158.21
+$builder->decorate($priceA, new Round(2))->getNett(); //returns 158.21
 ```
 
 ### Use rounded values to calculations
