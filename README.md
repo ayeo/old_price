@@ -30,6 +30,9 @@ You can convert currencies in two different ways. Example below shows converting
 ```
 $defaultRoundDecorator = new \Price\Decorator\Round(2);
 
+$rates = ['USD' => 1.000, 'PLN' => 3.3543];
+$convertCurrencyDecorator = new \Price\Decorator\ConvertCurrency('USD', $rates);
+
 $builder = new \Price\Builder\Builder();
 $builder->addDecorator($defaultRoundDecorator);
 $builder->addDecorator($convertCurrencyDecorator);
