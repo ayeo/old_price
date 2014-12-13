@@ -3,7 +3,6 @@ namespace Price\Test\Calculator;
 
 use Price\Builder\Builder;
 use Price\Calculator\StandardCalculator;
-use Price\Decorator\NoNegative;
 use Price\Decorator\Round;
 
 class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
@@ -88,65 +87,49 @@ class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
 		];
 	}
 
-	/**
-	 * @dataProvider testSubtractionByGrossNoNegativeDataProvider
-	 */
-	public function testSubtractionByGrossNoNegative($grossA, $taxA, $grossB, $taxB, $expectedGross)
-	{
-		$this->builder->addDecorator(new NoNegative());
-
-		$priceA = $this->builder->buildByGross($grossA, $taxA);
-		$priceB = $this->builder->buildByGross($grossB, $taxB);
-
-		$this->calculator->subtract($priceA, $priceB);
-
-		$this->assertEquals($expectedGross, $priceA->getGross());
-	}
 
 	/**
 	 * @dataProvider testAddingDataProvider
 	 */
-	public function testAdding($round, $tax, $grossA, $grossB, $expectedNett, $expectedGross)
+	public function testAdding($round, $taxA, $nettA, $taxB, $nettB, $expectedNett, $expectedGross, $expectedTax)
 	{
-		if (!is_null($round))
-		{
-			$this->builder->addDecorator(new Round($round));
-		}
-
-		$priceA = $this->builder->buildByNett($grossA, $tax);
-		$priceB = $this->builder->buildByNett($grossB, $tax);
+		$builder = new PriceMockBuilder($round);
+		$priceA = $builder->build($nettA, null, $taxA);
+		$priceB = $builder->build($nettB, null, $taxB);
 
 		$this->calculator->add($priceA, $priceB);
 
 		$this->assertEquals($expectedGross, $priceA->getGross());
 		$this->assertEquals($expectedNett, $priceA->getNett());
+		$this->assertEquals($expectedTax, $priceA->getTax());
 	}
 
 	public function testAddingDataProvider()
 	{
 		return [
-			[2,		23,		100,		100,		200,		246],
-			[2,		23,		99.99,		87.87,		187.86,		231.07],
-			[null,	23,		99.99,		87.87,		187.86,		231.0678],
+			[2,		23,		100,		23,		100,		200,		246,		23],
+			[2,		23,		99.99,		23,		87.87,		187.86,		231.07,		23],
+			[null,	23,		99.99,		23,		87.87,		187.86,		231.0678,	23],
 
-			[null,	19.11,	56.11543,	11.73822,	67.85365,	80.820482515],
-			[0,		19.11,	56.11543,	11.73822,	68.00,		81.00],
-			[2,		19.11,	56.11543,	11.73822,	67.86,		80.82],
+			[null,	19.11,	56.11543,	19.11,	11.73822,	67.85365,	80.820482515,	19.11],
+			[0,		19.11,	56.11543,	19.11,	11.73822,	68.00,		81.00,			19.11],
+			[2,		19.11,	56.11543,	19.11,	11.73822,	67.86,		80.82,			19.11],
 
-			[2,		0,		1.0444,		1.0444,		2.08,		2.08],
-			[0,		0,		1.0444,		1.0444,		2.00,		2.00],
-			[null,	0,		1.0444,		1.0444,		2.0888,		2.0888],
-		];
-	}
+			[2,		0,		1.0444,		0,		1.0444,		2.08,		2.08,			0],
+			[0,		0,		1.0444,		0,		1.0444,		2.00,		2.00,			0],
+			[null,	0,		1.0444,		0,		1.0444,		2.0888,		2.0888,			0],
 
-	public function testSubtractionByGrossNoNegativeDataProvider()
-	{
-		return [
-			[100, 		10, 	150, 		10,		0],
-			[199.99, 	23, 	200, 		10,		0],
-			[200,	 	23, 	199.99, 	10,		0.01],
-			[10.001, 	23, 	1.002, 		10,		8.999],
-			[10.01, 	23, 	1.01, 		10,		9.00],
+			[null,		23,		100,		10,		100,		200,		233,		16.50],
+
+			[null,		10.00,	67.1512,	10.00,	13.1145,	80.2657,		88.29227,		10.00],
+			[1,			10.00,	67.1512,	10.00,	13.1145,	80.3000,		88.30000,		10.00],
+			[2,			10.00,	67.1512,	10.00,	13.1145,	80.2600,		88.30000,		10.00],
+
+
+			[null,		10.00,	10.1144,	10.00,	10.1144,	20.2288,		22.25168,		10.00],
+			[0,			10.00,	10.1144,	10.00,	10.1144,	20.0000,		22.00000,		10.00],
+			[1,			10.00,	10.1144,	10.00,	10.1144,	20.2000,		22.20000,		10.00],
+			[2,			10.00,	10.1144,	10.00,	10.1144,	20.2200,		22.26000,		10.00], // gross: 11,12584 => 2 * 11,13 = 22,26
 		];
 	}
 }

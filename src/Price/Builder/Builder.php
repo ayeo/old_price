@@ -57,7 +57,7 @@ class Builder
 	public function buildByNett($nettValue, $tax)
 	{
 		$grossValue = $nettValue * (1 + $tax / 100);
-		
+
 		return $this->build($nettValue, $grossValue, $tax);
 	}
 

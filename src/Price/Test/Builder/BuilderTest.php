@@ -35,6 +35,8 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 			[100,			23,			123],
 
 			[99.99,			11,			110.9889],
+
+			[10.1144,		10,			11.12584]
 		];
 	}
 

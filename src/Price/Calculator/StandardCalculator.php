@@ -24,7 +24,8 @@ class StandardCalculator implements CalculatorInterface
 
 		if ($this->calculateTaxUsingRawValues AND !($priceA instanceof Price))
 		{
-			$rawA->add($rawB);
+			$rawA->setGross($rawA->getGross() + $rawB->getGross());
+			$rawA->setNett($rawA->getNett() + $rawB->getNett());
 			$this->recalculateTax($rawA);
 			$priceA->setTax($rawA->getTax());
 		}

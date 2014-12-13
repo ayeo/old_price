@@ -12,10 +12,13 @@ class PriceMock extends Price
 			$nett = $gross / (1 + $tax / 100);
 		}
 
+		if (!$gross)
+		{
+			$gross = $nett * (1 + $tax / 100);
+		}
+
 		$this->setGross($gross);
-		$this->setTax($tax);
-
-
 		$this->setNett($nett);
+		$this->setTax($tax);
 	}
 }
