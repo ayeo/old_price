@@ -26,7 +26,7 @@ $priceA->multiply(2)->getNett(); //returns 158.20
 ```
 
 ### Converting currency
-You can convert currencies in two different ways. Example below shows converting each price seperatly. It may be useful if you store prices in PLN but want them to be dispayed as USD. Notice wy use Round decorator twice
+You can convert currencies in two different ways. Example below shows converting each price seperatly. It may be useful if you store prices in PLN but want them to be dispayed as USD. Notice we use Round decorator twice
 ```
 $defaultRoundDecorator = new \Price\Decorator\Round(2);
 
