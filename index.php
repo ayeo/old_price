@@ -29,10 +29,11 @@ $builder = new \Price\Builder\Builder();
 $builder->addDecorator($defaultRoundDecorator);
 $builder->setCurrencySymbol('PLN');
 
-$price = $builder->buildByNett(100.00, 10);
-$price->multiply(2);
+$price = $builder->buildByNett(100.00, 10); //gross: 110.00 PLN
+$price->multiply(2); //gross: 220.00 PLN
 
-$price = $builder->decorate($price, $convertCurrencyDecorator);
+$price = $builder->decorate($price, $convertCurrencyDecorator); //gross: 65.5874549086 USD
+
 $price = $builder->decorate($price, $defaultRoundDecorator); //gross: 65.59 USD
 
 var_dump($price->getGross());
