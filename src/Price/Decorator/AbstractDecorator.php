@@ -2,6 +2,7 @@
 namespace Price\Decorator;
 
 use Price\Calculator\CalculatorInterface;
+use Price\Price;
 use Price\PriceInterface;
 
 abstract class AbstractDecorator implements PriceInterface
@@ -107,5 +108,13 @@ abstract class AbstractDecorator implements PriceInterface
 	public function setTax($tax)
 	{
 		$this->price->setTax($tax);
+	}
+
+	/**
+	 * @return Price
+	 */
+	final public function getRaw()
+	{
+		return $this->price->getRaw();
 	}
 }

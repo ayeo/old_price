@@ -35,4 +35,20 @@ class BuilderTest extends \PHPUnit_Framework_TestCase
 			[99.99, 11, 110.9889],
 		];
 	}
+
+	public function testBuildByString()
+	{
+		$price = $this->builder->buildByNett('test', 1);
+		$this->assertEquals(0.00, $price->getGross());
+		$this->assertEquals(0.00, $price->getNett());
+		$this->assertEquals(1.00, $price->getTax());
+	}
+
+	public function testBuildByTaxString()
+	{
+		$price = $this->builder->buildByNett(100, 'test');
+		$this->assertEquals(100.00, $price->getGross());
+		$this->assertEquals(100.00, $price->getNett());
+		$this->assertEquals(0.00, $price->getTax());
+	}
 }

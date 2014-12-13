@@ -65,4 +65,9 @@ interface PriceInterface
 	 * @return PriceInterface
 	 */
 	public function cloneMe();
+
+	/**
+	 * @return Price
+	 */
+	public function getRaw();
 }

@@ -28,7 +28,7 @@ class Price implements PriceInterface
 	/**
 	 * @var CalculatorInterface
 	 */
-	public $calculator;
+	private $calculator;
 
 
 	/**
@@ -136,5 +136,13 @@ class Price implements PriceInterface
 	public function cloneMe()
 	{
 		return clone($this);
+	}
+
+	/**
+	 * @return Price
+	 */
+	final public function getRaw()
+	{
+		return $this;
 	}
 }

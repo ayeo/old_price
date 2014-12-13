@@ -1,10 +1,13 @@
 <?php
 namespace Price\Calculator;
 
+use Price\Decorator\AbstractDecorator;
+use Price\Price;
 use Price\PriceInterface;
 
 class StandardCalculator implements CalculatorInterface
 {
+	private $calculateTaxUsingRawValues = true;
 	/**
 	 * @param PriceInterface $priceA
 	 * @param PriceInterface $priceB
@@ -13,10 +16,23 @@ class StandardCalculator implements CalculatorInterface
 	public function add(PriceInterface $priceA, PriceInterface $priceB)
 	{
 		$this->compareCurrencySymbols($priceA, $priceB);
+
+		$rawA = clone($priceA->getRaw());
+		$rawB = clone($priceB->getRaw());
+
 		$priceA->setGross($priceA->getGross() + $priceB->getGross());
 		$priceA->setNett($priceA->getNett() + $priceB->getNett());
 
-		$this->recalculateTax($priceA);
+		if ($this->calculateTaxUsingRawValues AND !($priceA instanceof Price))
+		{
+			$rawA->add($rawB);
+			$this->recalculateTax($rawA);
+			$priceA->setTax($rawA->getTax());
+		}
+		else
+		{
+			$this->recalculateTax($priceA);
+		}
 
 		return $priceA;
 	}
@@ -29,9 +45,23 @@ class StandardCalculator implements CalculatorInterface
 	public function subtract(PriceInterface $priceA, PriceInterface $priceB)
 	{
 		$this->compareCurrencySymbols($priceA, $priceB);
+
+		$rawA = clone($priceA->getRaw());
+		$rawB = clone($priceB->getRaw());
+
 		$priceA->setGross($priceA->getGross() - $priceB->getGross());
 		$priceA->setNett($priceA->getNett() - $priceB->getNett());
-		$this->recalculateTax($priceA);
+
+		if ($this->calculateTaxUsingRawValues AND !($priceA instanceof Price))
+		{
+			$rawA->subtract($rawB);
+			$this->recalculateTax($rawA);
+			$priceA->setTax($rawA->getTax());
+		}
+		else
+		{
+			$this->recalculateTax($priceA);
+		}
 
 		return $priceA;
 	}
