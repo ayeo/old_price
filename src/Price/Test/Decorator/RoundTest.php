@@ -25,7 +25,6 @@ class RoundTest extends \PHPUnit_Framework_TestCase
 			[0,			99.99,		23.00,		100.00],
 			[1,			99.99,		23.00,		100.00],
 			[2,			99.99,		23.00,		99.99],
-
 		];
 	}
 }

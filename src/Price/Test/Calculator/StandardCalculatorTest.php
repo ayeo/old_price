@@ -3,7 +3,6 @@ namespace Price\Test\Calculator;
 
 use Price\Builder\Builder;
 use Price\Calculator\StandardCalculator;
-use Price\Decorator\Round;
 
 class StandardCalculatorTest extends \PHPUnit_Framework_TestCase
 {
