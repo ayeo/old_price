@@ -3,7 +3,7 @@ namespace Price\Builder\Config;
 
 use Price\Calculator\StandardCalculator;
 
-class StandardConfig
+class StandardConfig implements ConfigInterface
 {
 	public function getCalculator()
 	{

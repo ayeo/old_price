@@ -1,6 +1,7 @@
 <?php
 namespace Price\Builder;
 
+use Price\Builder\Config\ConfigInterface;
 use Price\Builder\Config\StandardConfig;
 use Price\Calculator\CalculatorInterface;
 use Price\Decorator\AbstractDecorator;
@@ -25,7 +26,7 @@ class Builder implements BuilderInterface
 	private $calculator;
 
 
-	public function __construct(Config $config = null)
+	public function __construct(ConfigInterface $config = null)
 	{
 		if (is_null($config))
 		{
