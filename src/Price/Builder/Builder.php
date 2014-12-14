@@ -4,8 +4,8 @@ namespace Price\Builder;
 use Price\Calculator\StandardCalculator;
 use Price\Calculator\CalculatorInterface;
 use Price\Decorator\AbstractDecorator;
-use Price\Price;
-use Price\PriceInterface;
+use Price\Price\Price;
+use Price\Price\PriceInterface;
 
 class Builder
 {
@@ -88,12 +88,6 @@ class Builder
 		$price->setCurrencySymbol($this->currencySymbol);
 
 		return $this->decorate($price);
-//		foreach ($this->decorators as $decorator)
-//		{
-//			$price = $this->decorate($price, $decorator);
-//		}
-		
-		return $price;
 	}
 
 	public function decorate(PriceInterface $price)
@@ -111,5 +105,4 @@ class Builder
 
 		return $price;
 	}
-	
 }

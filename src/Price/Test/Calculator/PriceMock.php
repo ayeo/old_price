@@ -1,7 +1,7 @@
 <?php
 namespace Price\Test\Calculator;
 
-use Price\Price;
+use Price\Price\Price;
 
 class PriceMock extends Price
 {

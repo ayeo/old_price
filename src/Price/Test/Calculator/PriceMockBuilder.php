@@ -2,7 +2,7 @@
 namespace Price\Test\Calculator;
 
 use Price\Decorator\Round;
-use Price\Price;
+use Price\Price\Price;
 
 class PriceMockBuilder extends Price
 {

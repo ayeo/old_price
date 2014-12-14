@@ -1,8 +1,8 @@
 <?php
 namespace Price\Calculator;
 
-use Price\Price;
-use Price\PriceInterface;
+use Price\Price\Price;
+use Price\Price\PriceInterface;
 
 class StandardCalculator implements CalculatorInterface
 {
@@ -16,18 +16,18 @@ class StandardCalculator implements CalculatorInterface
 	{
 		$this->compareCurrencySymbols($priceA, $priceB);
 
-		$rawA = clone($priceA->getRaw());
-		$rawB = clone($priceB->getRaw());
+		$rawPriceA = $priceA->getRaw()->cloneMe();
+		$rawPriceB = $priceB->getRaw()->cloneMe();
 
 		$priceA->setGross($priceA->getGross() + $priceB->getGross());
 		$priceA->setNett($priceA->getNett() + $priceB->getNett());
 
 		if ($this->calculateTaxUsingRawValues AND !($priceA instanceof Price))
 		{
-			$rawA->setGross($rawA->getGross() + $rawB->getGross());
-			$rawA->setNett($rawA->getNett() + $rawB->getNett());
-			$this->recalculateTax($rawA);
-			$priceA->setTax($rawA->getTax());
+			$rawPriceA->setGross($rawPriceA->getGross() + $rawPriceB->getGross());
+			$rawPriceA->setNett($rawPriceA->getNett() + $rawPriceB->getNett());
+			$this->recalculateTax($rawPriceA);
+			$priceA->setTax($rawPriceA->getTax());
 		}
 		else
 		{
@@ -46,18 +46,18 @@ class StandardCalculator implements CalculatorInterface
 	{
 		$this->compareCurrencySymbols($priceA, $priceB);
 
-		$rawA = clone($priceA->getRaw());
-		$rawB = clone($priceB->getRaw());
+		$rawPriceA = $priceA->getRaw()->cloneMe();
+		$rawPriceB = $priceB->getRaw()->cloneMe();
 
 		$priceA->setGross($priceA->getGross() - $priceB->getGross());
 		$priceA->setNett($priceA->getNett() - $priceB->getNett());
 
 		if ($this->calculateTaxUsingRawValues AND !($priceA instanceof Price))
 		{
-			$rawA->setGross($rawA->getGross() - $rawB->getGross());
-			$rawA->setNett($rawA->getNett() - $rawB->getNett());
-			$this->recalculateTax($rawA);
-			$priceA->setTax($rawA->getTax());
+			$rawPriceA->setGross($rawPriceA->getGross() - $rawPriceB->getGross());
+			$rawPriceA->setNett($rawPriceA->getNett() - $rawPriceB->getNett());
+			$this->recalculateTax($rawPriceA);
+			$priceA->setTax($rawPriceA->getTax());
 		}
 		else
 		{

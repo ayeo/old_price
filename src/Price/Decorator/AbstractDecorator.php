@@ -2,8 +2,7 @@
 namespace Price\Decorator;
 
 use Price\Calculator\CalculatorInterface;
-use Price\Price;
-use Price\PriceInterface;
+use Price\Price\PriceInterface;
 
 abstract class AbstractDecorator implements PriceInterface
 {
@@ -35,7 +34,7 @@ abstract class AbstractDecorator implements PriceInterface
 	}
 
 	/**
-	 * @param PriceInterface $price
+	 * @param \Price\Price\PriceInterface $price
 	 * @return PriceInterface
 	 */
 	final public function subtract(PriceInterface $price)
@@ -60,58 +59,80 @@ abstract class AbstractDecorator implements PriceInterface
 		$this->calculator = $calculator;
 	}
 
-
+	/**
+	 * @return float
+	 */
 	public function getNett()
 	{
 		return $this->price->getNett();
 	}
 
-
+	/**
+	 * @return float
+	 */
 	public function getGross()
 	{
 		return $this->price->getGross();
 	}
 
+	/**
+	 * @return float
+	 */
 	public function getTax()
 	{
 		return $this->price->getTax();
 	}
 
 	/**
-	 * @return PriceInterface
+	 * @return \Price\Price\PriceInterface
 	 */
 	final public function cloneMe()
 	{
 		return clone($this);
 	}
 
+	/**
+	 * @return null|string
+	 */
 	public function getCurrencySymbol()
 	{
 		return $this->price->getCurrencySymbol();
 	}
 
+	/**
+	 * @param null|string $currencySymbol
+	 */
 	public function setCurrencySymbol($currencySymbol)
 	{
 		return $this->price->setCurrencySymbol($currencySymbol);
 	}
 
+	/**
+	 * @param float $grossValue
+	 */
 	public function setGross($grossValue)
 	{
 		$this->price->setGross($grossValue);
 	}
 
+	/**
+	 * @param float $nettValue
+	 */
 	public function setNett($nettValue)
 	{
 		$this->price->setNett($nettValue);
 	}
 
+	/**
+	 * @param float $tax
+	 */
 	public function setTax($tax)
 	{
 		$this->price->setTax($tax);
 	}
 
 	/**
-	 * @return Price
+	 * @return PriceInterface
 	 */
 	final public function getRaw()
 	{

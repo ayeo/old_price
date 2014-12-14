@@ -1,7 +1,7 @@
 <?php
 namespace Price\Calculator;
 
-use Price\PriceInterface;
+use Price\Price\PriceInterface;
 
 interface CalculatorInterface
 {
