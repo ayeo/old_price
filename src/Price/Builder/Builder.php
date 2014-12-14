@@ -1,13 +1,13 @@
 <?php
 namespace Price\Builder;
 
-use Price\Calculator\StandardCalculator;
+use Price\Builder\Config\StandardConfig;
 use Price\Calculator\CalculatorInterface;
 use Price\Decorator\AbstractDecorator;
 use Price\Price\Price;
 use Price\Price\PriceInterface;
 
-class Builder
+class Builder implements BuilderInterface
 {
 	/**
 	 * @var string|null
@@ -25,9 +25,16 @@ class Builder
 	private $calculator;
 
 
-	public function __construct()
+	public function __construct(Config $config = null)
 	{
-		$this->calculator = new StandardCalculator();
+		if (is_null($config))
+		{
+			$config = new StandardConfig();
+		}
+
+		$this->calculator = $config->getCalculator();
+		$this->decorators = $config->getDecorators();
+		$this->setCurrencySymbol($config->getCurrencySymbol());
 	}
 
 	/**
@@ -90,6 +97,10 @@ class Builder
 		return $this->decorate($price);
 	}
 
+	/**
+	 * @param PriceInterface $price
+	 * @return PriceInterface
+	 */
 	public function decorate(PriceInterface $price)
 	{
 		$price = $price->getRaw(); //add flag

@@ -61,6 +61,42 @@ $price = $usdBuilder->decorate($price); //gross: 65.59 USD
 ```
 Notice that we get different result in these two examples 65.59 USD and 65.58 USD
 
+### Custom configuration
+To create builder with predefinied configuration you may want to use ConfigInterface
+```
+class MyDefaultConfiguration implements ConfigInterface
+{
+	public function getCalculator()
+	{
+		return new StandardCalculator();
+	}
+
+	public function getDecorators()
+	{
+		return [new Round(2)];
+	}
+
+	public function getCurrencySymbol()
+	{
+		return 'USD';
+	}
+}
+
+
+$builder = new PriceBuilder(new MyDefaultConfiguration);
+$builder->buildByGross(199.9891, 7); //gross: 199.99 USD
+```
+
+### Calculations
+By default builder uses StandarCalculator. StandardCalculator performs operations by modifying given PriceInterface object. For example:
+```
+$priceA = $builder->buildByGross(100.00, 23);
+$priceB = $builder->buildByGross(10.00, 23);
+
+$priceA->add($priceB);
+$priceA->getGross() //returns 110.00
+```
+If you need to change this behavior (for example return brand new Price object) you have to provide your own calculator (must implement CalculatorInterface or extends StandardCalculator).
 
 ### Available decorators
 * NoNegative - returns 0.00 for prices below 0
