@@ -1,5 +1,9 @@
 {
     "name": "ayeo/price",
+    "description": "A simple PHP Price handling library",
+    "keywords": ["price", "price conversion"],
+    "type": "library",
+    "homepage": "https://github.com/ayeo/price",
     "license": "MIT",
     "authors": [
         {
@@ -7,10 +11,18 @@
             "email": "me@ayeo.pl"
         }
     ],
-    "require": {},
+    "require": {
+        "php": ">=5.4.0"
+    },
     "autoload": {
         "psr-4": {
             "Price\\": "src//Price//"
         }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
     }
+
 }

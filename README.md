@@ -3,6 +3,12 @@ Price
 
 Price handling. This library is under development. Do not use :)
 
+### Installation
+```
+php composer.phar require ayeo/price:~1.0
+```
+
+
 ### Basic Usage
 ```
 use \Price\Builder\Builder as PriceBuilder;
