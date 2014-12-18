@@ -1,8 +1,7 @@
-[![Scrutinizer](http://img.shields.io/scrutinizer/g/ayeo/price.svg?style=flat-square)]()(https://scrutinizer-ci.com/g/ayeo/price/build-status/master)
+[![Scrutinizer Code Quality](http://img.shields.io/scrutinizer/g/ayeo/price.svg?style=flat-square)](https://scrutinizer-ci.com/g/ayeo/price/build-status/master)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](license.md)
 [![Packagist Version](https://img.shields.io/packagist/v/ayeo/price.svg?style=flat-square)](https://packagist.org/packages/ayeo/price)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ayeo/price/badges/quality-score.png?b=master&style=flat-square)](https://scrutinizer-ci.com/g/ayeo/price/?branch=master)
-[![Code Coverage](https://scrutinizer-ci.com/g/ayeo/price/badges/coverage.png?b=master&style=flat-square)](https://scrutinizer-ci.com/g/ayeo/price/?branch=master)
+[![Code Coverage](http://img.shields.io/coveralls/jekyll/jekyll/master.svg?style=flat-square)](https://scrutinizer-ci.com/g/ayeo/price/?branch=master)
 
 Price
 ===========
