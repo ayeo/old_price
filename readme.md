@@ -6,7 +6,7 @@
 Price
 ===========
 
-Simple library that handles prices. It allows to easy manage rouding logic and converting prices.
+Simple library that handles prices. It allows to easy manage calculating and converting prices.
 
 ### Installation
 ```
@@ -114,8 +114,9 @@ If you need to change this behavior (for example return brand new Price object) 
 * ConvertCurrency
 * Round - allow to set prices precision
 
-### TODO
+### Todo
 * Add decorator for nice looknig prices like: 1.99, 9.99 etc
+* Price formatters
 
 ## License
 The MIT License (MIT). Please see [the license file](license.md) for more information.
