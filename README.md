@@ -1,4 +1,4 @@
-!https://travis-ci.org/ayeo/price.svg!:https://travis-ci.org/ayeo/price!
+[![Build Status](https://travis-ci.org/ayeo/price.svg)](https://travis-ci.org/ayeo/price)
 
 Price
 ===========
