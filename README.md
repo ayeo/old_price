@@ -10,7 +10,7 @@ php composer.phar require ayeo/price:~1.0
 
 
 ### Basic Usage
-```
+```php
 use \Price\Builder\Builder as PriceBuilder;
 use \Price\Decorator\Round as RoundDecorator;
 
@@ -25,7 +25,7 @@ $roundedBuilder->decorate($price)->getNett(); //returns 158.21
 ```
 
 ### Use rounded values for calculations
-```
+```php
 $usdRoundedBuilder = new PriceBuilder();
 $usdRoundedBuilder->setCurrencySymbol('USD');
 $usdRoundedBuilder->addDecorator(new RoundDecorator(2));
@@ -36,7 +36,7 @@ $price->multiply(2)->getNett(); //returns 158.20 USD
 
 ### Converting currency
 You can convert currencies in two different ways. Example below shows converting each price seperatly. It may be useful if you store prices in PLN but want them to be dispayed as USD. Notice we use Round decorator twice
-```
+```php
 use Price\Builder\Builder as PriceBuilder;
 use Price\Decorator\ConvertCurrency as ConvertCurrencyDecorator;
 use Price\Decorator\Round as RoundDecorator;
@@ -56,7 +56,7 @@ $price = $usdBuilder->buildByNett(100.00, 10); //gross: 32.79 USD
 $price->multiply(2); //gross: 65.58 USD
 ```
 If you want do all calculations in source currency and then convert totals you can do:
-```
+```php
 $plnBuilder = new PriceBuilder();
 $plnBuilder->addDecorator($defaultRoundDecorator);
 $plnBuilder->setCurrencySymbol('PLN');
@@ -69,7 +69,7 @@ Notice that we get different result in these two examples 65.59 USD and 65.58 US
 
 ### Custom configuration
 To create builder with predefinied configuration you may want to use ConfigInterface
-```
+```php
 class MyDefaultConfiguration implements ConfigInterface
 {
 	public function getCalculator()
@@ -95,7 +95,7 @@ $builder->buildByGross(199.9891, 7); //gross: 199.99 USD
 
 ### Calculations
 By default builder uses StandarCalculator. StandardCalculator performs operations by modifying given PriceInterface object. For example:
-```
+```php
 $priceA = $builder->buildByGross(100.00, 23);
 $priceB = $builder->buildByGross(10.00, 23);
 
