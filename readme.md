@@ -1,4 +1,4 @@
-[![Build Status](https://scrutinizer-ci.com/g/ayeo/price/badges/build.png?b=master)](https://scrutinizer-ci.com/g/ayeo/price/build-status/master)
+[![Build Status](https://scrutinizer-ci.com/g/ayeo/price/badges/build.png?b=master&style=flat-square)](https://scrutinizer-ci.com/g/ayeo/price/build-status/master)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](license.md)
 [![Packagist Version](https://img.shields.io/packagist/v/ayeo/price.svg?style=flat-square)](https://packagist.org/packages/ayeo/price)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/ayeo/price/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/ayeo/price/?branch=master)
