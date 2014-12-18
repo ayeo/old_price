@@ -7,7 +7,7 @@
 Price
 ===========
 
-Price handling. This library is under development. Use at own risk. 
+Simple library that handles prices. It allows to easy manage rouding logic and converting prices.
 
 ### Installation
 ```
