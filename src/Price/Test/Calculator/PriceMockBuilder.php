@@ -6,30 +6,30 @@ use Price\Price\Price;
 
 class PriceMockBuilder extends Price
 {
-	private $decorator;
+    private $decorator;
 
-	public function __construct($round = null)
-	{
-		if (!is_null($round))
-		{
-			$this->decorator = new Round($round);
-		}
-	}
+    public function __construct($round = null)
+    {
+        if (!is_null($round))
+        {
+            $this->decorator = new Round($round);
+        }
+    }
 
-	public function build($nett = null, $gross = null, $tax = null)
-	{
-		$price = new PriceMock($nett, $gross, $tax);
+    public function build($nett = null, $gross = null, $tax = null)
+    {
+        $price = new PriceMock($nett, $gross, $tax);
 
-		if ($this->decorator)
-		{
-			$decorator = clone($this->decorator);
-			$decorator->setPrice($price);
+        if ($this->decorator)
+        {
+            $decorator = clone($this->decorator);
+            $decorator->setPrice($price);
 
-			return $decorator;
-		}
+            return $decorator;
+        }
 
-		return $price;
+        return $price;
 
 
-	}
+    }
 }
