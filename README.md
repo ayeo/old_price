@@ -1,3 +1,5 @@
+!https://travis-ci.org/ayeo/price.svg!:https://travis-ci.org/ayeo/price
+
 Price
 ===========
 
