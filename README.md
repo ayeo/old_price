@@ -98,7 +98,7 @@ $builder->buildByGross(199.9891, 7); //gross: 199.99 USD
 ```
 
 ### Calculations
-By default builder uses StandarCalculator. StandardCalculator performs operations by modifying given PriceInterface object. For example:
+By default builder uses StandardCalculator. StandardCalculator performs operations by modifying given PriceInterface object. For example:
 ```php
 $priceA = $builder->buildByGross(100.00, 23);
 $priceB = $builder->buildByGross(10.00, 23);
