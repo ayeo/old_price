@@ -5,7 +5,7 @@
 Price
 ===========
 
-Price handling. This library is under development. Do not use :)
+Price handling. This library is under development. Use at own risk. 
 
 ### Installation
 ```
@@ -115,3 +115,7 @@ If you need to change this behavior (for example return brand new Price object) 
 
 ### TODO
 * Add decorator for nice looknig prices like: 1.99, 9.99 etc
+* 
+
+## License
+The MIT License (MIT). Please see [the license file](license.md) for more information.
