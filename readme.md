@@ -1,6 +1,8 @@
 Price
 ===========
 
+WARNING! The library is going to be highly refactored. Nobody is using it what I take as favor and wont use semantic versioning. 
+
 Simple library that handles prices. It allows to easy manage calculating and converting prices. 
 
 ### Installation
